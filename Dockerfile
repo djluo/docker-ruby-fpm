@@ -5,10 +5,16 @@ MAINTAINER djluo <dj.luo@baoyugame.com>
 
 RUN export http_proxy="http://172.17.42.1:8080/" \
     && export DEBIAN_FRONTEND=noninteractive     \
-    && build="libmysqlclient-dev patch zlib1g-dev make binutils cpp cpp-4.7 gcc gcc-4.7 libc-dev-bin libc6-dev libffi5 libgmp10 libgomp1 libitm1 libmpc2 libmpfr4 libquadmath0 libruby1.9.1 libyaml-0-2 linux-libc-dev manpages manpages-dev ruby-dev ruby1.9.1-dev" \
+    && build="libmysqlclient-dev \
+              patch zlib1g-dev make binutils \
+              cpp cpp gcc libc-dev-bin libc6-dev \
+              libgmp10 libgomp1 libitm1  \
+              libmpfr4 libquadmath0 libruby \
+              libyaml-0-2 linux-libc-dev manpages manpages-dev ruby-dev" \
     && apt-get update \
     && apt-get install -y $build \
-    && gem install fpm \
+    && unset http_proxy \
+    && gem install fpm  \
     && apt-get clean \
     && unset http_proxy DEBIAN_FRONTEND \
     && rm -rf /usr/share/locale \
